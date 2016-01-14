@@ -1,0 +1,1 @@
+SIM_DIR=/home/yazdan/phd/projects/aim.gpu
