@@ -24,29 +24,29 @@ if [ "$#" -ge 1 ]; then
 		echo -e "${Red}Use --help to learn how to use this bash script.${White}"
 	fi
 else
-	echo -e "${Blue}- Create the log directory ${White}"
+	echo -e "${Blue}- Create the log directory...${White}"
 		if [ ! -d log ]; then
 			mkdir log
 		fi
 
 	echo -e "${Blue}- Make the source file...${White}"
 		make clean > /dev/null
-		make SIM_TYPE=${SIMULATION_TYPE} > make_log 2>&1
+		make SIM_TYPE=${SIMULATION_TYPE} > ./log/make.log 2>&1
 		if [ "$?" -ne 0 ]; then
 			echo -e"${Red} Build failed...${White}"
-			cat make_log
+			cat ./log/make.log
 			exit
 		fi
 	
 	echo -e "${Blue}- Run the code...${White}"
-		for f in ../../data/input/*.bmp
+		for f in ./data/input/*.bmp
 		do
 			filename=$(basename "$f")
 			extension="${filename##*.}"
 			filename="${filename%.*}"
 
-			./bin/${BIN} $f ../../data/output/${filename}_${EXTENSION}.pgm > ../../log/${filename}_${EXTENSION}.log
+			./bin/${BIN} $f ./data/output/${filename}_output.pgm > ./log/${filename}.log
 		done
 
-	echo -e "${Green} Thanks for using AxBench-GPU..."
+	echo -e "${Green} Thanks for using AxBench-GPU...${White}"
 fi
